@@ -1,6 +1,8 @@
-package com.ideacolorschemes.commons.entities
+package com.ideacolorschemes.commons
+package entities
 
 import com.ideacolorschemes.commons.Binary
+import java.util.Date
 
 /**
  * @author il
@@ -13,7 +15,8 @@ case class ColorSettingsPageObject(id: String,
                                    icon: Option[Binary],
                                    colors: Option[List[ColorDescriptorObject]],
                                    attributes: Option[List[AttributesDescriptorObject]],
-                                   codeSnippet: CodeSnippet) {
+                                   codeSnippet: CodeSnippet,
+                                   timestamp: Date = new Date) extends WithTimestamp {
   def isGeneral = name == ColorScheme.GENERAL
 }
 

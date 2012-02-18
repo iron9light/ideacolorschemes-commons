@@ -1,7 +1,9 @@
-package com.ideacolorschemes.commons.entities
+package com.ideacolorschemes.commons
+package entities
 
 import java.security.MessageDigest
 import org.apache.commons.codec.binary.Base64
+import java.util.Date
 
 /**
  * @author il
@@ -15,7 +17,8 @@ case class ColorScheme(id: ColorSchemeId,
                        colors: Map[String, Int] = Map.empty,
                        attributes: Map[String, TextAttributesObject] = Map.empty,
                        summary: Option[String] = None,
-                       tags: Option[List[String]] = None) {
+                       tags: Option[List[String]] = None,
+                       timestamp: Date = new Date) extends WithTimestamp {
   def isGeneral = id.target == ColorScheme.GENERAL
 }
 

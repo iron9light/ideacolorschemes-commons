@@ -2,7 +2,7 @@ package com.ideacolorschemes.commons.bson
 
 import com.ideacolorschemes.commons.entities._
 import org.bson.{BasicBSONObject, BSONObject}
-import java.util.ArrayList
+import java.util.{Date, ArrayList}
 import collection.JavaConversions._
 
 /**
@@ -20,6 +20,7 @@ object ColorSchemeParser extends BsonParser[ColorScheme] {
     val attributes = Option(b.get("attributes")).map(_.asInstanceOf[ArrayList[BSONObject]].map(b => (b.get("k").asInstanceOf[String], TextAttributesObjectParser.fromBson(b.get("v")))).toMap).getOrElse(Map.empty[String, TextAttributesObject])
     val summary = Option(b.get("summary")).map(_.asInstanceOf[String])
     val tags = Option(b.get("tags")).map(_.asInstanceOf[ArrayList[String]].toList).filterNot(_.isEmpty)
+    val timestamp = b.get("timestamp").asInstanceOf[Date]
     ColorScheme(id,
       dependencies,
       isDefaultScheme,
@@ -27,7 +28,8 @@ object ColorSchemeParser extends BsonParser[ColorScheme] {
       colors,
       attributes,
       summary,
-      tags)
+      tags,
+      timestamp)
   }
 
   def toBson(colorScheme: ColorScheme) = colorScheme match {
@@ -38,7 +40,8 @@ object ColorSchemeParser extends BsonParser[ColorScheme] {
     colors,
     attributes,
     summary,
-    tags) =>
+    tags,
+    timestamp) =>
       val b = new BasicBSONObject()
       ColorSchemeIdParser.toBson(id).foreach(b.put("_id", _))
       dependencies.filterNot(_.isEmpty).foreach(x => b.put("dependencies", ColorSchemeIdParser.listToBsonArray(x)))
@@ -56,6 +59,7 @@ object ColorSchemeParser extends BsonParser[ColorScheme] {
         b.put("attributes", attributeBsonMap)
       summary.foreach(b.put("summary", _))
       tags.filterNot(_.isEmpty).foreach(x => b.put("tags", x.toArray))
+      b.put("timestamp", timestamp)
       Some(b)
   }
 }

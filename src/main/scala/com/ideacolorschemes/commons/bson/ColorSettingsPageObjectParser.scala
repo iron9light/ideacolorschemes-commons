@@ -3,8 +3,8 @@ package com.ideacolorschemes.commons.bson
 import com.ideacolorschemes.commons.entities._
 import com.ideacolorschemes.commons.Binary
 import org.bson.{BasicBSONObject, BSONObject}
-import java.util.ArrayList
 import collection.JavaConversions._
+import java.util.{Date, ArrayList}
 
 /**
  * @author il
@@ -21,13 +21,15 @@ object ColorSettingsPageObjectParser extends BsonParser[ColorSettingsPageObject]
     val colors = Option(b.get("colors")).map(ColorDescriptorObjectParser.listFromBson(_)).filterNot(_.isEmpty)
     val attributes = Option(b.get("attributes")).map(AttributesDescriptorObjectParser.listFromBson(_)).filterNot(_.isEmpty)
     val codeSnippet = CodeSnippetParser.fromBson(b.get("codeSnippet"))
+    val timestamp = b.get("timestamp").asInstanceOf[Date]
     ColorSettingsPageObject(id,
       version,
       name,
       icon,
       colors,
       attributes,
-      codeSnippet)
+      codeSnippet,
+      timestamp)
   }
 
   def toBson(colorSetting: ColorSettingsPageObject) = colorSetting match {
@@ -37,7 +39,8 @@ object ColorSettingsPageObjectParser extends BsonParser[ColorSettingsPageObject]
     icon,
     colors,
     attributes,
-    codeSnippet) =>
+    codeSnippet,
+    timestamp) =>
       val bsonId = new BasicBSONObject().append("id", id)
       version.foreach(bsonId.put("version", _))
       bsonId.put("name", name)
@@ -46,6 +49,7 @@ object ColorSettingsPageObjectParser extends BsonParser[ColorSettingsPageObject]
       colors.filterNot(_.isEmpty).foreach(x => b.put("colors", ColorDescriptorObjectParser.listToBsonArray(x)))
       attributes.filterNot(_.isEmpty).foreach(x => b.put("attributes", AttributesDescriptorObjectParser.listToBsonArray(x)))
       CodeSnippetParser.toBson(codeSnippet).foreach(b.put("codeSnippet", _))
+      b.put("timestamp", timestamp)
       Some(b)
   }
 }
