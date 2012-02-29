@@ -23,6 +23,37 @@
   <artifactId>commons</artifactId>
   <version>0.1-SNAPSHOT</version>
   <packaging>jar</packaging>
+  <name>ideacolorschemes-commons</name>
+  <inceptionYear>2012</inceptionYear>
+  <url>https://github.com/iron9light/${project.artifactId}</url>
+
+  <scm>
+    <connection>scm:git:git://github.com/iron9light/${project.artifactId}.git</connection>
+    <developerConnection>scm:git:git@github.com:iron9light/${project.artifactId}.git</developerConnection>
+    <url>git@github.com:iron9light/${project.artifactId}.git</url>
+  </scm>
+
+  <issueManagement>
+    <system>github</system>
+    <url>http://github.com/iron9light/${project.artifactId}/issues#issue</url>
+  </issueManagement>
+
+  <developers>
+    <developer>
+      <id>iron9light</id>
+      <name>IL</name>
+      <url>http://iron9light.wordpress.com</url>
+      <timezone>+8</timezone>
+    </developer>
+  </developers>
+
+  <licenses>
+    <license>
+      <name>The Apache Software License, Version 2.0</name>
+      <url>http://www.apache.org/licenses/LICENSE-2.0.txt</url>
+      <distribution>repo</distribution>
+    </license>
+  </licenses>
 
   <properties>
     <scala.version>2.9.1</scala.version>
