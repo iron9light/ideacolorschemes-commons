@@ -89,7 +89,7 @@
             </compilerPlugin>
           </compilerPlugins>
           <args>
-            <arg>-P:continuations:enable</arg>
+            <!--<arg>-P:continuations:enable</arg>-->
           </args>
           <jvmArgs>
             <jvmArg>-Xmx1024m</jvmArg>
@@ -109,18 +109,6 @@
             </launcher>
           </launchers>
         </configuration>
-      </plugin>
-      <plugin>
-        <groupId>org.zeroturnaround</groupId>
-        <artifactId>jrebel-maven-plugin</artifactId>
-        <version>1.1.3</version>
-        <executions>
-          <execution>
-            <goals>
-              <goal>generate</goal>
-            </goals>
-          </execution>
-        </executions>
       </plugin>
       <plugin>
         <artifactId>maven-surefire-plugin</artifactId>
@@ -145,4 +133,29 @@
       </plugin>
     </plugins>
   </build>
+
+  <profiles>
+    <profile>
+      <id>dev</id>
+      <activation>
+        <activeByDefault>true</activeByDefault>
+      </activation>
+      <build>
+        <plugins>
+          <plugin>
+            <groupId>org.zeroturnaround</groupId>
+            <artifactId>jrebel-maven-plugin</artifactId>
+            <version>1.1.3</version>
+            <executions>
+              <execution>
+                <goals>
+                  <goal>generate</goal>
+                </goals>
+              </execution>
+            </executions>
+          </plugin>
+        </plugins>
+      </build>
+    </profile>
+  </profiles>
 </project>
