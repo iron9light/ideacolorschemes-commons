@@ -105,8 +105,8 @@ object TextAttributesObject {
 
 object FontType extends Enumeration {
   val PLAIN,
-  ITALIC,
   BOLD,
+  ITALIC,
   BOLD_ITALIC = Value
 }
 
