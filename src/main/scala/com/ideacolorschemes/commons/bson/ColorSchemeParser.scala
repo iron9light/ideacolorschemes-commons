@@ -23,7 +23,6 @@ import collection.JavaConversions._
 
 /**
  * @author il
- * @version 11/22/11 4:09 PM
  */
 
 object ColorSchemeParser extends BsonParser[ColorScheme] {
@@ -118,17 +117,23 @@ object FontSettingParser extends BsonParser[FontSetting] {
     val editorFontSize = Option(b.get("editorFontSize")).map(_.asInstanceOf[Int])
     val lineSpacing = Option(b.get("lineSpacing")).map(_.asInstanceOf[Double].toFloat)
     val quickDocFontSize = Option(b.get("quickDocFontSize")).map(_.asInstanceOf[Int])
-    FontSetting(editorFontName, editorFontSize, lineSpacing, quickDocFontSize)
+    val consoleFontName = Option(b.get("consoleFontName")).map(_.asInstanceOf[String])
+    val consoleFontSize = Option(b.get("consoleFontSize")).map(_.asInstanceOf[Int])
+    val consoleLineSpacing = Option(b.get("consoleLineSpacing")).map(_.asInstanceOf[Double].toFloat)
+    FontSetting(editorFontName, editorFontSize, lineSpacing, quickDocFontSize, consoleFontName, consoleFontSize, consoleLineSpacing)
   }
 
   def toBson(fontSetting: FontSetting) = fontSetting match {
     case FontSetting.Empty => None
-    case FontSetting(editorFontName, editorFontSize, lineSpacing, quickDocFontSize) =>
+    case FontSetting(editorFontName, editorFontSize, lineSpacing, quickDocFontSize, consoleFontName, consoleFontSize, consoleLineSpacing) =>
       val b = new BasicBSONObject
       editorFontName.foreach(b.put("editorFontName", _))
       editorFontSize.foreach(b.put("editorFontSize", _))
       lineSpacing.foreach(b.put("lineSpacing", _))
       quickDocFontSize.foreach(b.put("quickDocFontSize", _))
+      consoleFontName.foreach(b.put("consoleFontName", _))
+      consoleFontSize.foreach(b.put("consoleFontSize", _))
+      consoleLineSpacing.foreach(b.put("consoleLineSpacing", _))
       Some(b)
   }
 }

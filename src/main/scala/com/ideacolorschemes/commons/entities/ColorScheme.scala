@@ -23,7 +23,6 @@ import java.util.Date
 
 /**
  * @author il
- * @version 11/7/11 6:35 PM
  */
 
 case class ColorScheme(id: ColorSchemeId,
@@ -91,7 +90,7 @@ object Version {
   def apply(): Version = NoVersion
 }
 
-case class FontSetting(editorFontName: Option[String] = None, editorFontSize: Option[Int] = None, lineSpacing: Option[Float] = None, quickDocFontSize: Option[Int] = None)
+case class FontSetting(editorFontName: Option[String] = None, editorFontSize: Option[Int] = None, lineSpacing: Option[Float] = None, quickDocFontSize: Option[Int] = None, consoleFontName: Option[String] = None, consoleFontSize: Option[Int] = None, consoleLineSpacing: Option[Float] = None)
 
 object FontSetting {
   val Empty = FontSetting()
